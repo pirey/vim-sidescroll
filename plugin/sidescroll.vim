@@ -1,7 +1,8 @@
-if exists('g:loaded_sidescroll')
-  finish
-endif
-let g:loaded_sidescroll = 1
+ if exists('g:loaded_sidescroll')
+   finish
+ endif
+ let g:loaded_sidescroll = 1
+ let g:sidescroll_mode_active = 0
 
 " Default keybindings
 if !exists('g:sidescroll_right_key')
@@ -25,6 +26,7 @@ endif
 
 " Start horizontal scroll mode
 function! StartSideScrollMode()
+  let g:sidescroll_mode_active = 1
   execute 'nnoremap <buffer> ' . g:sidescroll_right_key . ' zl'
   execute 'nnoremap <buffer> ' . g:sidescroll_left_key . ' zh'
   execute 'nnoremap <buffer> ' . g:sidescroll_right_big_key . ' zL'
@@ -35,12 +37,15 @@ function! StartSideScrollMode()
     autocmd! * <buffer>
     autocmd WinLeave <buffer> call EndSideScrollMode()
   augroup END
-  echohl ModeMsg
-  echo "-- SCROLL --"
-  echohl None
+  if &cmdheight > 0
+    echohl ModeMsg
+    echo "-- SCROLL --"
+    echohl None
+  endif
 endfunction
 
 function! EndSideScrollMode()
+  let g:sidescroll_mode_active = 0
   execute 'nunmap <buffer> ' . g:sidescroll_right_key
   execute 'nunmap <buffer> ' . g:sidescroll_left_key
   execute 'nunmap <buffer> ' . g:sidescroll_right_big_key

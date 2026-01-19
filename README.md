@@ -43,13 +43,20 @@ In scroll mode:
 You can customize the keybindings by setting global variables in your vimrc:
 
 ```vim
-let g:sidescroll_right_key = 'l'
-let g:sidescroll_left_key = 'h'
-let g:sidescroll_right_big_key = 'L'
-let g:sidescroll_left_big_key = 'H'
-let g:sidescroll_quit_key = 'q'
-let g:sidescroll_escape_key = '<Esc>'
-```
+ let g:sidescroll_right_key = 'l'
+ let g:sidescroll_left_key = 'h'
+ let g:sidescroll_right_big_key = 'L'
+ let g:sidescroll_left_big_key = 'H'
+ let g:sidescroll_quit_key = 'q'
+ let g:sidescroll_escape_key = '<Esc>'
+ ```
+
+ You can check if scroll mode is active using the global variable `g:sidescroll_mode_active` (1 if active, 0 otherwise). This is useful for displaying scroll mode status in custom statuslines.
+
+ ```vim
+ " Example statusline integration
+ set statusline=%{g:sidescroll_mode_active?'[SCROLL]':''}%f%=%l/%L
+ ```
 
 ## License
 
